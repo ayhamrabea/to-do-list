@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+
+{% block body %}
+
+	<div class="center-column">
+		<form method="POST" action="/">
+			{% csrf_token %}
+			{{form.title}}
+			<input class="btn btn-info" type="submit" name="Create Task">
+		</form>
+		<div class="todo-list">
+			{% for list in tacks  %}
+				<div class="item-row">
+					<a class="btn btn-sm btn-info"  href= "{% url 'update' list.id %}" >update</a>
+					<a class="btn btn-sm btn-danger"  href= "{% url 'delate' list.id %}" >delate</a>
+					{% if list.active == True %}
+					<strike>{{list}}</strike>
+					{% else %}
+					<p>{{list}}</p>
+					{% endif %}
+				</div>
+
+			{% endfor %}
+		</div>
+
+	</div>
+
+{% endblock body %}
